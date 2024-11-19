@@ -1,0 +1,50 @@
+name: "munin-server"
+
+services:
+  munin-server:
+    image: munin-server 
+    build: ../docker-munin-server
+    volumes:
+      - "${LOCAL}/cache:/var/cache/munin:rw"
+      - "${LOCAL}/lib:/var/lib/munin:rw"
+      - "${LOCAL}/log:/var/log/munin:rw"
+      - "${LOCAL}/run:/var/run/munin:rw"
+      # Host timezone
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    ports:
+      - "127.0.0.1:8080:80"
+    environment:
+      DISABLELOCALNODE: "yes"
+      CRONDELAY: 1
+      NODES: >-
+        zenazo:172.19.0.1:4848
+
+      #  gemini:10.10.10.9
+      #  pandora:10.10.10.8
+
+volumes:
+  cache:
+    driver: local
+    driver_opts:
+      type: none
+      device: "${LOCAL}/cache"
+      o: bind
+  lib:
+    driver: local
+    driver_opts:
+      type: none
+      device: "${LOCAL}/lib"
+      o: bind
+  log:
+    driver: local
+    driver_opts:
+      type: none
+      device: "${LOCAL}/log"
+      o: bind
+  run:
+    driver: local
+    driver_opts:
+      type: none
+      device: "${LOCAL}/run"
+      o: bind

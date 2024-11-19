@@ -1,0 +1,10 @@
+# Linux editors
+*~
+.*.sw*
+
+# Runtime paths
+cache/
+lib/
+log/
+run/
+.env
