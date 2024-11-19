@@ -1,7 +1,7 @@
 #!/bin/bash
 set -Eeuo pipefail
 
-INIT_PATH="."
+INIT_PATH="${1:-.}"
 REAL_PATH="$(realpath "${INIT_PATH}")"
 
 mkdir -vp \
